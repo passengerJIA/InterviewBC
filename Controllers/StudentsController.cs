@@ -38,15 +38,12 @@ public class StudentsController : ControllerBase
             var reorderedStudents = new List<Student>();
             for(var i = 0; i < Math.Ceiling((decimal)generatedStudents.Count / 2); i++)
             {
-                if(generatedStudents[i].Id != generatedStudents[generatedStudents.Count - 1 - i].Id)
-                {
-                    reorderedStudents.Add(generatedStudents[i]);
-                    reorderedStudents.Add(generatedStudents[generatedStudents.Count - 1 - i]);
-                }
-                else
-                {
-                    reorderedStudents.Add(generatedStudents[i]);
-                }
+                reorderedStudents.Add(generatedStudents[i]);
+                reorderedStudents.Add(generatedStudents[generatedStudents.Count - 1 - i]);   
+            }
+            if (generatedStudents.Count % 2 != 0)
+            {
+                reorderedStudents.Remove(reorderedStudents[reorderedStudents.Count - 1]);
             }
             return Ok(new Tuple<List<Student>, List<Student>> ( generatedStudents, reorderedStudents));
         }
